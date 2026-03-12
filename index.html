@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GoodnessCities – One small action, big effect</title>
+<link rel="icon" href="https://goodnesscities.com/favicon.ico">
+<style>
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#EAF4FF}
+.container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px}
+.card{background:#fff;border:1px solid rgba(8,34,68,.10);border-radius:26px;box-shadow:0 30px 90px rgba(8,34,68,.06);max-width:900px;padding:26px;text-align:center}
+h1{margin:10px 0;font-size:clamp(28px,5vw,56px);line-height:1.05;color:rgba(8,34,68,.92)}
+p{margin:8px auto 0 auto;max-width:64ch;font-size:clamp(14px,2vw,18px);color:rgba(8,34,68,.75)}
+.hero{max-width:260px;margin:0 auto;border-radius:22px;overflow:hidden;background:rgba(255,255,255,.85);box-shadow:0 18px 80px rgba(8,34,68,.12)}
+.hero video{display:block;width:100%;height:220px;object-fit:cover;background:#2B7FFF}
+.cta{margin-top:18px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{cursor:pointer;appearance:none;padding:12px 18px;border-radius:14px;font-weight:700;text-decoration:none}
+.primary{background:#2B7FFF;color:#fff;box-shadow:0 10px 30px rgba(43,127,255,.25)}
+.secondary{background:rgba(255,255,255,.85);border:1px solid rgba(8,34,68,.12);color:rgba(8,34,68,.85)}
+.grid{margin-top:28px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cell{height:72px;border-radius:18px;background:rgba(43,127,255,.06);border:1px solid rgba(8,34,68,.08);cursor:pointer;transition:background .12s linear, transform .12s linear}
+.cell.active{background:rgba(60,213,157,.12);transform:translateY(-1px)}
+.footer{margin-top:14px;font-size:13px;color:rgba(8,34,68,.54)}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <div class="hero">
+      <video playsinline muted autoplay preload="auto" loop>
+        <source src="assets/GC Presentation.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h1>One small action, big ripple.</h1>
+    <p>Upload your GN teaser and logo MP4s into <code>assets/</code> and watch the impact story become real. Start here, then join GoodnessCities.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://goodnesscities.com" target="_blank" rel="noreferrer">Join GoodnessCities</a>
+      <a class="btn secondary" href="https://goodnesscities.com" target="_blank" rel="noreferrer">Visit the site</a>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="footer">Files expected: <code>assets/GC Presentation.mp4</code> and <code>assets/GOODNESS LOGO.mp4</code> (or GIF fallback).</div>
+  </div>
+</div>
+<script>
+(function(){
+  const size=4;
+  const grid=document.getElementById('grid');
+  for(let i=0;i<size*size;i++){
+    const cell=document.createElement('div');
+    cell.className='cell';
+    cell.addEventListener('click',()=>{
+      cell.classList.add('active');
+      setTimeout(()=>cell.classList.remove('active'),550);
+      [i-4,i+4,(i-1),(i+1)].forEach(j=>{
+        if(j>=0 && j<size*size && Math.floor(j/4)===Math.floor((j%4)/4)){
+          const n=grid.children[j];
+          if(n){n.classList.add('active');setTimeout(()=>n.classList.remove('active'),500);}
+        }
+      })
+    });
+    grid.appendChild(cell);
+  }
+})();
+</script>
+</body>
+</html>
